@@ -9,7 +9,7 @@ class BaseManager
         parsed_document.search('img').each do |i|
           i['src'] = absolute_uri(i['src'], page_uri)
         end
-        parsed_document.search('form#buy input').each do |i|
+        parsed_document.search('input').each do |i|
           i['src'] = absolute_uri(i['src'], page_uri) if i['src']
         end
       when :css_links
@@ -55,17 +55,25 @@ class BaseManager
     if path.blank?
       return path
     elsif path =~ /^http:\/\//
-      return controller.send(:proxy_path, :uri => path).gsub('%2F', '/')
+      return controller.send(:proxy_path, :uri => uri_to_base64(path))
     elsif path =~ /^[[:alnum:]]/
       return path
     elsif path =~ /^\//
       root_uri = URI.parse(base_uri)
       root_uri.path  = ''
       root_uri.query = nil
-      return controller.send(:proxy_path, :uri => root_uri.to_s + path).gsub('%2F', '/')
+      return controller.send(:proxy_path, :uri => uri_to_base64(root_uri.to_s + path))
     else
       raise "don't know how to make '#{path}' relative"
     end
+  end
+
+  def self.base64_to_uri(b64)
+    ActiveSupport::Base64.decode64(b64)
+  end
+
+  def self.uri_to_base64(uri)
+    ActiveSupport::Base64.encode64(uri).lines.collect(&:strip).join
   end
 
   def self.new_element(tag_name, document, attributes={})

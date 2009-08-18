@@ -1,8 +1,9 @@
 class ProxyController < ApplicationController
   require 'mechanize'
+  ensure_authenticated_to_facebook
 
   def get
-    uri     = URI.parse(params[:uri]).to_s
+    uri     = BaseManager.base64_to_uri(params[:uri])
     manager = nil
     Shop.all.each do |shop|
       manager = shop.manager_class if shop.recognize_uri(uri)
@@ -18,5 +19,6 @@ class ProxyController < ApplicationController
       render :nothing => true
     end
   end
+
 
 end
