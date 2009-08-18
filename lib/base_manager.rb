@@ -68,4 +68,10 @@ class BaseManager
     end
   end
 
+  def self.new_element(tag_name, document, attributes={})
+    element = Nokogiri::XML::Element.new(tag_name, document)
+    attributes.each_pair { |key, value| element[key] = value }
+    element
+  end
+
 end
