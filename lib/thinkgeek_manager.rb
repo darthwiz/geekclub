@@ -29,11 +29,9 @@ class ThinkgeekManager < BaseManager
         )
       end
       [ 'select#sku', 'select#skuwisher' ].each do |id|
-        f.search(id).each do |sel|
-          sel['onchange'] = "document.forms['buy'].unit_price.value = options[selectedIndex].attributes['price'].firstChild.wholeText"
-        end
         f.search("#{id} option").each do |opt|
-          opt['price'] = opt.inner_text.sub(/.*\$([0-9]+(\.[0-9]+)?).*/, "\\1").to_f.to_s
+          price = opt.inner_text.sub(/.*\$([0-9]+(\.[0-9]+)?).*/, "\\1").to_f
+          opt['onclick'] = "document.forms['buy'].unit_price.value = #{price}"
         end
       end
       f.add_child(
