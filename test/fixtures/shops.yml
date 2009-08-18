@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+thinkgeek:
+  id: 1
+  name: ThinkGeek
+  manager_name: Thinkgeek

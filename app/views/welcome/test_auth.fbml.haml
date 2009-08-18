@@ -1,0 +1,11 @@
+%div
+  If you're seeing this,
+  =succeed ',' do
+    %fb:name{:uid => @fb_user.uid, :firstnameonly => 'true', :useyou => 'false'}/
+  -#<fb:name uid="@fb_user.uid" firstnameonlyi='true' useyou='false'/>,
+  you're authenticated.
+%div{:style => 'display: none;'}
+  -for field in Facebooker::User::FIELDS.map(&:to_s).sort
+    -value = h(@fb_user.send(field).to_s)
+    ="#{field} = #{value}"
+    %br

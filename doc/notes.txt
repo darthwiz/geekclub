@@ -1,0 +1,15 @@
+users
+  - facebook_id
+
+shops
+  - name
+  - handler_name
+
+wishes
+  - user_id
+  - shop_id
+  - sku
+  - description
+  - unit_price
+  - quantity
+  - timestamps
