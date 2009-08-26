@@ -1,0 +1,10 @@
+.panel_inside
+  .user
+    GeekClub &mdash;
+    =h "#{@user.first_name} #{@user.last_name}"
+    /%img{:src => @user.picture}
+  .url
+    Proxy:
+    =h @proxy_uri
+  .flash
+    =flash[:notice]

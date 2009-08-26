@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090818144816) do
+ActiveRecord::Schema.define(:version => 20090821163024) do
 
   create_table "shops", :force => true do |t|
     t.string "name",         :limit => 40, :null => false
@@ -17,12 +17,15 @@ ActiveRecord::Schema.define(:version => 20090818144816) do
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "facebook_id"
+    t.integer  "fbid",       :limit => 8
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name", :limit => 80
+    t.string   "last_name",  :limit => 80
+    t.string   "picture",    :limit => 200
   end
 
-  add_index "users", ["facebook_id"], :name => "index_users_on_facebook_id"
+  add_index "users", ["fbid"], :name => "index_users_on_fbid", :unique => true
 
   create_table "wishes", :force => true do |t|
     t.integer  "user_id",                                     :null => false

@@ -1,2 +1,9 @@
 !!!
-=yield
+%html(xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml")
+  %head
+    %title= @page_title
+    =javascript_include_tag :defaults
+  %body
+    =fb_connect_javascript_tag
+    =init_fb_connect 'XFBML'
+    =yield
